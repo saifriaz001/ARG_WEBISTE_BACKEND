@@ -5,7 +5,9 @@ export const createJob = async (req, res) => {
   try {
     const {
       title,
-      location,
+      country,
+      state,
+      city,
       businessLine,
       careerArea,
       description,
@@ -15,7 +17,9 @@ export const createJob = async (req, res) => {
     } = req.body;
     console.log(
       title,
-      location,
+      country,
+      state,
+      city,
       businessLine,
       careerArea,
       description,
@@ -25,7 +29,9 @@ export const createJob = async (req, res) => {
     // --- Validation ---
     if (
       !title ||
-      !location ||
+      !country||
+      !state||
+      !city||
       !businessLine ||
       !careerArea ||
       !description ||
@@ -44,7 +50,9 @@ export const createJob = async (req, res) => {
     // --- Create New Job ---
     const newJob = new Job({
       title,
-      location,
+      country,
+      state,
+      city,
       businessLine,
       careerArea,
       description,
@@ -68,7 +76,6 @@ export const createJob = async (req, res) => {
 export const getAllJobs = async (req, res) => {
   try {
     const jobs = await Job.find()
-      .populate("title", "name")
       .sort({ createdAt: -1 }); // Sort by newest first
 
     res.status(200).json(jobs);

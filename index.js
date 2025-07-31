@@ -8,8 +8,10 @@ import LocationRoutes from "./Routes/LocationRoutes.js";
 import ServiceRoutes from "./Routes/ServiceRoutes.js";
 import ProjectRoutes from "./Routes/ProjectRoutes.js";
 import AuthRoutes from "./Routes/AuthRoutes.js";
-// import ImagekitRoutes from "./Routes/ImagekitRoutes.js";
+import ImagekitRoutes from "./Routes/ImagekitRoutes.js";
 import TypeRoutes from "./Routes/TypeRoutes.js";
+import JobRoutes from "./Routes/jobRoutes.js";
+import projectArrayRoutes from "./Routes/projectArrayRoutes.js";
 import cookieParser from 'cookie-parser';
 dotenv.config();
 
@@ -44,6 +46,8 @@ const startServer = async () => {
     app.use('/api/v1', AuthRoutes);
     app.use('/api/v1', TypeRoutes);
     app.use('/api/v1', ImagekitRoutes);
+    app.use('/api/v1', JobRoutes);
+    app.use('/api/v1', projectArrayRoutes);
 
     app.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
