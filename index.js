@@ -10,9 +10,7 @@ import ProjectRoutes from "./Routes/ProjectRoutes.js";
 import AuthRoutes from "./Routes/AuthRoutes.js";
 // import ImagekitRoutes from "./Routes/ImagekitRoutes.js";
 import TypeRoutes from "./Routes/TypeRoutes.js";
-import cookieParser from "cookie-parser";
-import jobRoutes from "./Routes/jobRoutes.js";
-
+import cookieParser from 'cookie-parser';
 dotenv.config();
 
 const app = express();
@@ -38,15 +36,14 @@ const startServer = async () => {
       res.send("✅ API is running with ES Modules");
     });
 
-    app.use("/api/v1", newsRoutes);
-    app.use("/api/v1", MarketRoutes);
-    app.use("/api/v1", LocationRoutes);
-    app.use("/api/v1", ServiceRoutes);
-    app.use("/api/v1", ProjectRoutes);
-    app.use("/api/v1", AuthRoutes);
-    app.use("/api/v1", TypeRoutes);
-    app.use("/api/v1", ImagekitRoutes);
-    app.use("/api/v1", jobRoutes);
+    app.use('/api/v1', newsRoutes);
+    app.use('/api/v1', MarketRoutes);
+    app.use('/api/v1', LocationRoutes);
+    app.use('/api/v1', ServiceRoutes);
+    app.use('/api/v1', ProjectRoutes);
+    app.use('/api/v1', AuthRoutes);
+    app.use('/api/v1', TypeRoutes);
+    app.use('/api/v1', ImagekitRoutes);
 
     app.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
