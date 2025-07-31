@@ -21,31 +21,36 @@ app.use(cors({
 }));
 
 app.use(express.json()); 
-app.use(cookieParser());       
+app.use(cookieParser());
+       
+const PORT = process.env.PORT || 3000;
 
-const startServer = async () =>{
-    try {
-        await connectDB(); // Connect to MongoDB
-    } catch (error) {
-    }
-}
+const startServer = async () => {
+  try {
+    await connectDB();
+    console.log("✅ MongoDB connected");
 
+    app.get('/', (req, res) => {
+      res.send("✅ API is running with ES Modules");
+    });
+
+    app.use('/api/v1', newsRoutes);
+    app.use('/api/v1', MarketRoutes);
+    app.use('/api/v1', LocationRoutes);
+    app.use('/api/v1', ServiceRoutes);
+    app.use('/api/v1', ProjectRoutes);
+    app.use('/api/v1', AuthRoutes);
+    app.use('/api/v1', TypeRoutes);
+    app.use('/api/v1', ImagekitRoutes);
+
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on port ${PORT}`);
+    });
+
+  } catch (error) {
+    console.error("❌ Failed to start server:", error);
+    process.exit(1);
+  }
+};
 
 startServer();
-
-app.get('/', (req ,res)=>{
-    res.send("API is running with Es Modules");
-})
-
-app.use('/api/v1', newsRoutes); // Use the news routes
-app.use("/api/v1", MarketRoutes);
-app.use("/api/v1", LocationRoutes); // Use the market routes
-app.use("/api/v1", ServiceRoutes);
-app.use("/api/v1", ProjectRoutes);
-app.use("/api/v1", AuthRoutes);
-app.use("/api/v1", TypeRoutes); // Use the type routes
-app.use("/api/v1", ImagekitRoutes); // Use the auth routes
-const PORT = process.env.PORT ;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
