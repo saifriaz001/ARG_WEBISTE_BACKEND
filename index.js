@@ -45,7 +45,7 @@ app.use("/api/v1", ProjectRoutes);
 app.use("/api/v1", AuthRoutes);
 app.use("/api/v1", TypeRoutes); // Use the type routes
 app.use("/api/v1", ImagekitRoutes); // Use the auth routes
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT ;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

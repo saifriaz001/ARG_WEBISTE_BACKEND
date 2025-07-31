@@ -44,13 +44,7 @@ const projectSchema = new mongoose.Schema(
       required: true,
       index: true,
     },
-    slug: {
-      type: String,
-      unique: true,
-      lowercase: true,
-      trim: true,
-      index: true,
-    },
+
     // ✅ References
     market: [{
       type: mongoose.Schema.Types.ObjectId,
