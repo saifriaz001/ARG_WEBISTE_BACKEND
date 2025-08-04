@@ -8,7 +8,7 @@ import LocationRoutes from "./Routes/LocationRoutes.js";
 import ServiceRoutes from "./Routes/ServiceRoutes.js";
 import ProjectRoutes from "./Routes/ProjectRoutes.js";
 import AuthRoutes from "./Routes/AuthRoutes.js";
-// import ImagekitRoutes from "./Routes/ImagekitRoutes.js";
+import ImagekitRoutes from "./Routes/ImagekitRoutes.js";
 import TypeRoutes from "./Routes/TypeRoutes.js";
 import cookieParser from "cookie-parser";
 import jobRoutes from "./Routes/jobRoutes.js";
@@ -45,7 +45,7 @@ const startServer = async () => {
     app.use("/api/v1", ProjectRoutes);
     app.use("/api/v1", AuthRoutes);
     app.use("/api/v1", TypeRoutes);
-    // app.use("/api/v1", ImagekitRoutes);
+    app.use("/api/v1", ImagekitRoutes);
     app.use("/api/v1", jobRoutes);
 
     app.listen(PORT, () => {
