@@ -11,21 +11,17 @@ const jobSchema = new Schema(
       required: [true, "Job title is required."],
       trim: true,
     },
-
     country: { type: String, required: true, trim: true },
     state: { type: String, required: true, trim: true },
     city: { type: String, required: true, trim: true },
-
     businessLine: {
       type: String,
       required: true,
-      trim: true,
     },
 
     careerArea: {
       type: String,
       required: true,
-      trim: true,
     },
 
     slug: {

@@ -29,9 +29,9 @@ export const createJob = async (req, res) => {
     // --- Validation ---
     if (
       !title ||
-      !country ||
-      !state ||
-      !city ||
+      !country||
+      !state||
+      !city||
       !businessLine ||
       !careerArea ||
       !description ||
@@ -70,7 +70,6 @@ export const createJob = async (req, res) => {
 export const getAllJobs = async (req, res) => {
   try {
     const jobs = await Job.find()
-      .populate("title", "name")
       .sort({ createdAt: -1 }); // Sort by newest first
 
     res.status(200).json(jobs);
