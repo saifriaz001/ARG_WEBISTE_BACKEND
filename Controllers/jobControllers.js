@@ -1,11 +1,13 @@
-import Job from "../models/Job.js";
+import Job from "../Models/Job.js";
 // import WorkLocation from "../models/WorkLocation.js";
 
 export const createJob = async (req, res) => {
   try {
     const {
       title,
-      location,
+      country,
+      state,
+      city,
       businessLine,
       careerArea,
       description,
@@ -15,7 +17,9 @@ export const createJob = async (req, res) => {
     } = req.body;
     console.log(
       title,
-      location,
+      country,
+      state,
+      city,
       businessLine,
       careerArea,
       description,
@@ -25,7 +29,9 @@ export const createJob = async (req, res) => {
     // --- Validation ---
     if (
       !title ||
-      !location ||
+      !country ||
+      !state ||
+      !city ||
       !businessLine ||
       !careerArea ||
       !description ||
@@ -35,16 +41,12 @@ export const createJob = async (req, res) => {
       return res.status(400).json({ message: "Missing required fields." });
     }
 
-    // Check if the provided workLocationId is valid
-    // const workLocationExists = await WorkLocation.findById(workLocation);
-    // if (!workLocationExists) {
-    //   return res.status(404).json({ message: "Work Location not found." });
-    // }
-
     // --- Create New Job ---
     const newJob = new Job({
       title,
-      location,
+      country,
+      state,
+      city,
       businessLine,
       careerArea,
       description,

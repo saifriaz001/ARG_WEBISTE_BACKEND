@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { trim } from "zod";
 
 const { Schema } = mongoose;
 
@@ -11,32 +12,20 @@ const jobSchema = new Schema(
       trim: true,
     },
 
-    location: {
-      country: { type: String, required: true, trim: true },
-      state: { type: String, required: true, trim: true },
-      city: { type: String, required: true, trim: true },
-    },
+    country: { type: String, required: true, trim: true },
+    state: { type: String, required: true, trim: true },
+    city: { type: String, required: true, trim: true },
 
     businessLine: {
       type: String,
       required: true,
-      enum: [
-        "Urban Design",
-        "Commercial Buildings",
-        "Residential Architecture",
-        "Landscape Architecture",
-      ],
+      trim: true,
     },
 
     careerArea: {
       type: String,
       required: true,
-      enum: [
-        "Architectural Design",
-        "Project Management",
-        "Interior Design",
-        "Sustainability Consulting",
-      ],
+      trim: true,
     },
 
     slug: {
@@ -62,13 +51,6 @@ const jobSchema = new Schema(
       required: [true, "Work location name is required."],
       enum: ["Remote", "Hybrid", "On-site"],
     },
-
-    // status: {
-    //   type: String,
-    //   required: false,
-    //   enum: ["Open", "Closed", "On Hold"],
-    //   default: "Open",
-    // },
   },
   {
     timestamps: true,

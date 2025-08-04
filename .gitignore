@@ -1,9 +1,5 @@
 # Environment files
-.env
-.env.*
-!.env.example
-!.env.template
-!.env-ignore
+
 
 # Node dependencies
 node_modules/
