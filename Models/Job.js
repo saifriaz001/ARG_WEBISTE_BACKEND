@@ -37,6 +37,11 @@ const jobSchema = new Schema(
       required: [true, "Job description is required."],
     },
 
+    minRequirements: {
+      type: [String],
+      required: [true, "At least one minimum requirement is required."],
+    },
+
     qualifications: {
       type: [String],
       required: [true, "At least one qualification is required."],
@@ -46,6 +51,11 @@ const jobSchema = new Schema(
       type: String,
       required: [true, "Work location name is required."],
       enum: ["Remote", "Hybrid", "On-site"],
+    },
+    applyFormLink: {
+      type: String,
+      required: [true, "Apply form link is required."],
+      trim: true,
     },
   },
   {
