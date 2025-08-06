@@ -1,4 +1,4 @@
-import Job from "../models/Job.js";
+import Job from "../Models/Job.js";
 // import WorkLocation from "../models/WorkLocation.js";
 
 export const createJob = async (req, res) => {
@@ -11,9 +11,10 @@ export const createJob = async (req, res) => {
       businessLine,
       careerArea,
       description,
+      minRequirements,
       qualifications,
-      workLocation, // Expecting the ID of the work location
-      //   status,
+      workLocation,
+      applyFormLink,
     } = req.body;
     console.log(
       title,
@@ -23,29 +24,27 @@ export const createJob = async (req, res) => {
       businessLine,
       careerArea,
       description,
+      minRequirements,
       qualifications,
-      workLocation
+      workLocation,
+      applyFormLink
     );
     // --- Validation ---
     if (
       !title ||
-      !country||
-      !state||
-      !city||
+      !country ||
+      !state ||
+      !city ||
       !businessLine ||
       !careerArea ||
       !description ||
+      !minRequirements ||
       !qualifications ||
-      !workLocation
+      !workLocation ||
+      !applyFormLink
     ) {
       return res.status(400).json({ message: "Missing required fields." });
     }
-
-    // Check if the provided workLocationId is valid
-    // const workLocationExists = await WorkLocation.findById(workLocation);
-    // if (!workLocationExists) {
-    //   return res.status(404).json({ message: "Work Location not found." });
-    // }
 
     // --- Create New Job ---
     const newJob = new Job({
@@ -56,9 +55,10 @@ export const createJob = async (req, res) => {
       businessLine,
       careerArea,
       description,
+      minRequirements,
       qualifications,
       workLocation,
-      //   status,
+      applyFormLink,
     });
 
     await newJob.save();
@@ -75,8 +75,7 @@ export const createJob = async (req, res) => {
 
 export const getAllJobs = async (req, res) => {
   try {
-    const jobs = await Job.find()
-      .sort({ createdAt: -1 }); // Sort by newest first
+    const jobs = await Job.find().sort({ createdAt: -1 }); // Sort by newest first
 
     res.status(200).json(jobs);
   } catch (error) {
