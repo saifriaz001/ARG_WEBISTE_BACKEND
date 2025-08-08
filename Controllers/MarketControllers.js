@@ -1,11 +1,40 @@
 import Market from "../Models/Markets.js";
+import  Project from "../Models/Projects.js";
 
 // POST /api/markets
 export const createMarket = async (req, res) => {
   try {
-    const { title, heading, description, imageUrl } = req.body;
+    const {
+      title,
+      mainHeading,
+      mainDescription,
+      imageUrl,
+      secondHeading,
+      secondDescription,
+      descriptionImageUrl,
+      highlightsHeading,
+      highlightsDescriptions, // this should be an array of strings
+      highlightsDescriptionImageUrl
+    } = req.body;
 
-    const market = new Market({ title, heading, description, imageUrl });
+    if (!title || !mainHeading || !mainDescription || !imageUrl) {
+  return res.status(400).json({ success: false, message: "Missing required fields" });
+}
+
+
+    const market = new Market({
+      title,
+      mainHeading,
+      mainDescription,
+      imageUrl,
+      secondHeading,
+      secondDescription,
+      descriptionImageUrl,
+      highlightsHeading,
+      highlightsDescriptions,
+      highlightsDescriptionImageUrl
+    });
+
     const saved = await market.save();
 
     res.status(201).json({ success: true, data: saved });
@@ -19,7 +48,17 @@ export const createMarket = async (req, res) => {
 export const getAllMarkets = async (req, res) => {
   try {
     const markets = await Market.find().sort({ createdAt: -1 });
-    res.status(200).json({ success: true, data: markets });
+     // For each market, fetch its related projects
+    const marketsWithProjects = await Promise.all(
+      markets.map(async (market) => {
+        const projects = await Project.find({ market: market._id });
+        return {
+          ...market.toObject(),
+          projects // attach projects to each market
+        };
+      })
+    )
+    res.status(200).json({ success: true, data: marketsWithProjects });
   } catch (error) {
     console.error('❌ Error fetching markets:', error.message);
     res.status(500).json({ success: false, message: 'Failed to fetch markets' });

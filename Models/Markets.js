@@ -5,35 +5,54 @@ const marketSchema = new mongoose.Schema(
     title: {
       type: String,
       required: true,
-      unique: true // Keep trimming here for uniqueness
+      unique: true, // Ensures no duplicate titles
+      trim: true
     },
-    heading: {
+    mainHeading: {
       type: String,
       required: true,
-      index: true // ✅ indexed but not trimmed
+      index: true
     },
-    description: {
+    mainDescription: {
       type: String,
       required: true,
-      index: true // ✅ indexed to support full-text or keyword searches
+      index: true
     },
     imageUrl: {
       type: String,
-      required: true,
+      required: true
+    },
+    secondHeading: {
+      type: String
+    },
+    secondDescription: {
+      type: String
+    },
+    descriptionImageUrl: {
+      type: String
+    },
+    highlightsHeading: {
+      type: String
+    },
+    highlightsDescriptions: {
+      type: [String] // Array of bullet points
+    },
+    highlightsDescriptionImageUrl: {
+      type: String
     },
     slug: {
       type: String,
       unique: true,
       lowercase: true,
-      trim: true,
+      trim: true
     }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
 );
 
-// ✅ Slug generation based on name
+// ✅ Slug generation based on title
 marketSchema.pre('save', function (next) {
   if (!this.slug && this.title) {
     this.slug = this.title.toLowerCase().replace(/[\s&]+/g, '-');
@@ -41,8 +60,8 @@ marketSchema.pre('save', function (next) {
   next();
 });
 
-// ✅ Optional compound index
-marketSchema.index({ title: 1, heading: 1 }); // useful if you filter both
+// ✅ Optional compound index (removed invalid 'heading' field)
+marketSchema.index({ title: 1, mainHeading: 1 });
 
 const Market = mongoose.model('Market', marketSchema);
 export default Market;
